@@ -16,3 +16,23 @@ export interface Flight {
   departureTime: string;
   arrivalTime: string;
 }
+
+export interface Hotel {
+  id: string;
+  name: string;
+  location: string;
+  pricePerNight: number;
+  rating: number;
+  availableFrom: string;
+  availableTo: string;
+}
+
+export interface OfficeSpace {
+  id: string;
+  name: string;
+  location: string;
+  pricePerDay: number;
+  capacity: number;
+  availableFrom: string;
+  availableTo: string;
+}
