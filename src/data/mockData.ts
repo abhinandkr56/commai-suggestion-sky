@@ -1,4 +1,4 @@
-import { Transaction, Flight, Hotel, OfficeSpace } from "../types/transaction";
+import { Transaction, Flight, Hotel, OfficeSpace, Restaurant } from "../types/transaction";
 
 export const mockTransactions: Transaction[] = [
   {
@@ -126,4 +126,37 @@ export const mockOfficeSpaces: OfficeSpace[] = [
     availableFrom: "2024-03-20",
     availableTo: "2024-03-25",
   },
+];
+
+export const mockRestaurants: Restaurant[] = [
+  {
+    id: "1",
+    name: "Taj Dining",
+    location: "Mumbai Central",
+    cuisine: "Indian",
+    pricePerPerson: 2500,
+    rating: 4.8,
+    availableTime: "7:00 PM",
+    capacity: 50
+  },
+  {
+    id: "2",
+    name: "The Oriental Kitchen",
+    location: "BKC",
+    cuisine: "Asian",
+    pricePerPerson: 1800,
+    rating: 4.5,
+    availableTime: "8:00 PM",
+    capacity: 40
+  },
+  {
+    id: "3",
+    name: "La Bistro",
+    location: "Colaba",
+    cuisine: "French",
+    pricePerPerson: 3000,
+    rating: 4.7,
+    availableTime: "7:30 PM",
+    capacity: 30
+  }
 ];

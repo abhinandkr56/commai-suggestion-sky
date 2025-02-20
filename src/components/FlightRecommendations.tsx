@@ -1,18 +1,18 @@
-
-import { Flight, Hotel, OfficeSpace } from "../types/transaction";
+import { Flight, Hotel, OfficeSpace, Restaurant } from "../types/transaction";
 import { Card } from "./ui/card";
 import { ScrollArea } from "./ui/scroll-area";
 import { Button } from "./ui/button";
-import { Plane, Building, Building2 } from "lucide-react";
+import { Plane, Building, Building2, UtensilsCrossed } from "lucide-react";
 
 interface FlightRecommendationsProps {
   flights?: Flight[];
   hotels?: Hotel[];
   officeSpaces?: OfficeSpace[];
-  type: 'flight' | 'hotel' | 'office';
+  restaurants?: Restaurant[];
+  type: 'flight' | 'hotel' | 'office' | 'restaurant';
 }
 
-export const FlightRecommendations = ({ flights, hotels, officeSpaces, type }: FlightRecommendationsProps) => {
+export const FlightRecommendations = ({ flights, hotels, officeSpaces, restaurants, type }: FlightRecommendationsProps) => {
   const getTitle = () => {
     switch (type) {
       case 'flight':
@@ -21,6 +21,8 @@ export const FlightRecommendations = ({ flights, hotels, officeSpaces, type }: F
         return 'Recommended Hotels';
       case 'office':
         return 'Recommended Office Spaces';
+      case 'restaurant':
+        return 'Recommended Restaurants';
     }
   };
 
@@ -114,6 +116,36 @@ export const FlightRecommendations = ({ flights, hotels, officeSpaces, type }: F
                 </div>
                 <Button className="w-full mt-2 bg-commai-accent hover:bg-commai-accent/90">
                   Book Office Space
+                </Button>
+              </div>
+            </Card>
+          ))}
+
+          {type === 'restaurant' && restaurants?.map((restaurant) => (
+            <Card
+              key={restaurant.id}
+              className="p-4 transition-all hover:shadow-md border-none bg-white/50"
+            >
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <UtensilsCrossed className="h-5 w-5 text-commai-accent" />
+                    <span className="font-medium text-commai-text">{restaurant.name}</span>
+                  </div>
+                  <span className="font-semibold text-commai-text">₹{restaurant.pricePerPerson}/person</span>
+                </div>
+                <div className="flex justify-between text-sm text-gray-500">
+                  <div>
+                    <p>{restaurant.location}</p>
+                    <p className="font-medium">{restaurant.cuisine} • Rating: {restaurant.rating}★</p>
+                  </div>
+                  <div className="text-right">
+                    <p>Available at</p>
+                    <p className="font-medium">{restaurant.availableTime}</p>
+                  </div>
+                </div>
+                <Button className="w-full mt-2 bg-commai-accent hover:bg-commai-accent/90">
+                  Book Restaurant
                 </Button>
               </div>
             </Card>

@@ -3,12 +3,12 @@ import { useState } from "react";
 import { ChatBox } from "@/components/ChatBox";
 import { TransactionHistory } from "@/components/TransactionHistory";
 import { FlightRecommendations } from "@/components/FlightRecommendations";
-import { mockTransactions, mockFlights, mockHotels, mockOfficeSpaces } from "@/data/mockData";
+import { mockTransactions, mockFlights, mockHotels, mockOfficeSpaces, mockRestaurants } from "@/data/mockData";
 import { useToast } from "@/components/ui/use-toast";
-import { Plane, Building, Building2, ArrowRight } from "lucide-react";
+import { Plane, Building, Building2, UtensilsCrossed, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
-type RecommendationType = 'flight' | 'hotel' | 'office';
+type RecommendationType = 'flight' | 'hotel' | 'office' | 'restaurant';
 
 const Index = () => {
   const { toast } = useToast();
@@ -16,8 +16,6 @@ const Index = () => {
   const [recommendationType, setRecommendationType] = useState<RecommendationType>('flight');
 
   const handleMessage = (message: string) => {
-    // In a real application, this would process the message with Gemini AI
-    // and determine the type of booking required
     const lowerMessage = message.toLowerCase();
     let type: RecommendationType = 'flight';
     let description = "Finding the best flights based on your transaction history...";
@@ -28,6 +26,9 @@ const Index = () => {
     } else if (lowerMessage.includes('office')) {
       type = 'office';
       description = "Finding the best office spaces based on your transaction history...";
+    } else if (lowerMessage.includes('restaurant') || lowerMessage.includes('food') || lowerMessage.includes('dining')) {
+      type = 'restaurant';
+      description = "Finding the best restaurants based on your preferences...";
     }
 
     toast({
@@ -35,7 +36,6 @@ const Index = () => {
       description,
     });
     
-    // Add a 5-second delay before showing recommendations
     setTimeout(() => {
       setRecommendationType(type);
       setShowRecommendations(true);
@@ -50,6 +50,8 @@ const Index = () => {
         return "Book a Marriott hotel";
       case 'office':
         return "Book a WeWork space";
+      case 'restaurant':
+        return "Book a table for dinner";
     }
   };
 
@@ -64,7 +66,7 @@ const Index = () => {
           <h1 className="text-4xl md:text-6xl font-bold text-commai-text">CommAI</h1>
           <p className="text-xl text-gray-700">Your Personal Travel & Work Assistant</p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-8">
             <Card 
               className="p-6 backdrop-blur-sm bg-white/80 border-none shadow-lg hover:shadow-xl transition-all cursor-pointer"
               onClick={() => handleQuickAction('flight')}
@@ -103,6 +105,19 @@ const Index = () => {
                 <ArrowRight className="h-5 w-5 text-gray-400" />
               </div>
             </Card>
+
+            <Card 
+              className="p-6 backdrop-blur-sm bg-white/80 border-none shadow-lg hover:shadow-xl transition-all cursor-pointer"
+              onClick={() => handleQuickAction('restaurant')}
+            >
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+                  <UtensilsCrossed className="h-6 w-6 text-amber-500" />
+                </div>
+                <h3 className="font-semibold text-commai-text">Restaurant Booking</h3>
+                <ArrowRight className="h-5 w-5 text-gray-400" />
+              </div>
+            </Card>
           </div>
         </div>
         
@@ -113,6 +128,7 @@ const Index = () => {
               flights={recommendationType === 'flight' ? mockFlights : undefined}
               hotels={recommendationType === 'hotel' ? mockHotels : undefined}
               officeSpaces={recommendationType === 'office' ? mockOfficeSpaces : undefined}
+              restaurants={recommendationType === 'restaurant' ? mockRestaurants : undefined}
               type={recommendationType}
             />
           )}

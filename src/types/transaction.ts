@@ -36,3 +36,14 @@ export interface OfficeSpace {
   availableFrom: string;
   availableTo: string;
 }
+
+export interface Restaurant {
+  id: string;
+  name: string;
+  location: string;
+  cuisine: string;
+  pricePerPerson: number;
+  rating: number;
+  availableTime: string;
+  capacity: number;
+}
