@@ -20,10 +20,10 @@ const Index = () => {
     let type: RecommendationType = 'flight';
     let description = "Finding the best flights based on your transaction history...";
 
-    if (lowerMessage.includes('hotel') || lowerMessage.includes('stay')) {
+    if (lowerMessage.includes('hotel')) {
       type = 'hotel';
       description = "Finding the best hotels based on your transaction history...";
-    } else if (lowerMessage.includes('office') || lowerMessage.includes('work')) {
+    } else if (lowerMessage.includes('office')) {
       type = 'office';
       description = "Finding the best office spaces based on your transaction history...";
     }
@@ -33,8 +33,11 @@ const Index = () => {
       description,
     });
     
-    setRecommendationType(type);
-    setShowRecommendations(true);
+    // Add a 5-second delay before showing recommendations
+    setTimeout(() => {
+      setRecommendationType(type);
+      setShowRecommendations(true);
+    }, 5000);
   };
 
   return (

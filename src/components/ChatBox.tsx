@@ -26,7 +26,7 @@ export const ChatBox = ({ onSendMessage }: ChatBoxProps) => {
         <Input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type your flight requirements..."
+          placeholder="Type your requirements..."
           className="flex-1 border-none bg-transparent text-commai-text"
         />
         <Button type="submit" className="bg-commai-accent hover:bg-commai-accent/90">
